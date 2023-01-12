@@ -8,7 +8,7 @@ export const Container = styled.div`
   width: 272px;
   margin: 0 4px;
   border-radius: 3px;
-  overflow: none;
+  // overflow: none;
   padding: 0 8px 8px;
 `;
 
@@ -27,7 +27,7 @@ export const EditTitleButton = styled.div`
 `;
 
 export const Title = styled.h2`
-  text-align: center;
+  text-align: left;
   line-height: 20px;
   min-height: 20px;
   font-weight: 600;

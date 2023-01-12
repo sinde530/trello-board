@@ -11,6 +11,8 @@ import {
   Title,
 } from "./styled";
 
+import Card from "../Card";
+
 export default function Column() {
   const [title, setTitle] = useState("To do");
   const [isShowingInput, setIsShowingInput] = useState(false);
@@ -32,8 +34,6 @@ export default function Column() {
       document.removeEventListener("click", onClick);
     };
   }, [isShowingInput]);
-
-  console.log(title);
 
   return (
     <Container>
@@ -58,7 +58,9 @@ export default function Column() {
           />
         )}
       </Header>
-      <CardList />
+      <CardList>
+        <Card />
+      </CardList>
       <Footer>
         <Button>ABCD</Button>
       </Footer>
