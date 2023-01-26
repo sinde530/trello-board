@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
   Button,
@@ -9,16 +9,16 @@ import {
   Header,
   Input,
   Title,
-} from "./styled";
+} from './styled';
 
-import Card from "../Card";
+import Card from '../Card';
 
 export default function Column() {
-  const [title, setTitle] = useState("To do");
+  const [title, setTitle] = useState('To do');
   const [isShowingInput, setIsShowingInput] = useState(false);
 
   const onPressEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       setIsShowingInput(false);
     }
   };
@@ -29,9 +29,9 @@ export default function Column() {
         setIsShowingInput(false);
       }
     };
-    document.addEventListener("click", onClick);
+    document.addEventListener('click', onClick);
     return () => {
-      document.removeEventListener("click", onClick);
+      document.removeEventListener('click', onClick);
     };
   }, [isShowingInput]);
 
