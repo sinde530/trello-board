@@ -1,9 +1,15 @@
-import { Container, Title } from "./styled";
+import { useState } from 'react';
+import { Container, Title } from './styled';
 
-export default function Card() {
+interface Props {
+  title: string;
+}
+
+export default function Card({ title }: Props) {
+  const [currentTitle, setCurrentTitle] = useState(title);
   return (
     <Container>
-      <Title>Criar Trello</Title>
+      <Title>{title}</Title>
     </Container>
   );
 }

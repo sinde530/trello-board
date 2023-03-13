@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { useParams } from 'react-router-dom';
 import {
   Button,
   CardList,
@@ -13,13 +14,22 @@ import {
 
 import Card from '../Card';
 
-export default function Column() {
-  const [title, setTitle] = useState('To do');
+export interface NewColumnProps {
+  onSuccess: (id: string, title: string) => void;
+  // onDismiss: () => void;
+}
+
+export default function Column({ onSuccess }: NewColumnProps) {
+  const [title, setTitle] = useState('');
   const [isShowingInput, setIsShowingInput] = useState(false);
+  const { id } = useParams();
 
   const onPressEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
-      setIsShowingInput(false);
+      e.preventDefault();
+      if (title) {
+        onSuccess(id, title);
+      }
     }
   };
 

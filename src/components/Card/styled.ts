@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -18,4 +18,5 @@ export const Title = styled.span`
   line-height: 20px;
   text-align: start;
   word-break: break-all;
+  color: #000;
 `;
