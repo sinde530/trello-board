@@ -1,10 +1,14 @@
-export interface Card {
-  id: string;
-  title: string;
+export interface CardData {
+  id: number;
+  text: string;
+  description: string;
+  label: any[];
+  dueDate: string;
+  assignedMembers: any[];
 }
 
-export interface Column {
-  id: string;
+export interface ListData {
+  id: number;
   title: string;
-  cards: Card[];
+  cards: CardData[];
 }
