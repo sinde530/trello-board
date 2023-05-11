@@ -1,52 +1,97 @@
 import './App.css';
 import { useState } from 'react';
 import {
+  AddBox,
   AddCardButton,
   AddListButton,
   Board,
+  CancelButton,
   Card,
   Container,
+  InputField,
   List,
+  ListBox,
+  TitleText,
 } from './styled';
-
-interface CardData {
-  id: number;
-  text: string;
-}
-
-interface ListData {
-  id: number;
-  title: string;
-  cards: CardData[];
-}
+import { CardData, ListData } from './types';
 
 export default function App() {
-  const [lists, setLists] = useState<ListData[]>([]);
+  const [newListTitle, setNewListTitle] = useState<string>('');
+  const [isAddingList, setIsAddingList] = useState<boolean>(false);
+  const [newCardText, setNewCardText] = useState<string>('');
+  const [newCardDescription, setNewCardDescription] = useState<string>('');
+  const [newCardLabels, setNewCardLabels] = useState<string[]>([]);
+  const [newCardDueDate, setNewCardDueDate] = useState<string>('');
+  const [newCardAssignedMembers, setNewCardAssignedMembers] = useState<
+    string[]
+  >([]);
+
+  const [lists, setLists] = useState<ListData[]>([
+    {
+      id: 1,
+      title: 'To Do',
+      cards: [],
+    },
+    {
+      id: 2,
+      title: 'In Progress',
+      cards: [],
+    },
+    {
+      id: 3,
+      title: 'Done',
+      cards: [],
+    },
+  ]);
 
   const addList = () => {
+    if (newListTitle.trim() === '') {
+      return;
+    }
+
     const newList: ListData = {
       id: Date.now(),
-      title: 'New List',
+      title: newListTitle,
       cards: [],
     };
 
     setLists((prevLists) => [...prevLists, newList]);
+    setNewListTitle('');
+    setIsAddingList(false);
+  };
+
+  const cancelAddList = () => {
+    setIsAddingList(false);
+    setNewListTitle('');
+  };
+
+  const toggleAddList = () => {
+    setIsAddingList((prev) => !prev);
   };
 
   const addCard = (listId: number) => {
     const newCard: CardData = {
       id: Date.now(),
-      text: 'New Card',
+      text: newCardText,
+      description: newCardDescription,
+      label: newCardLabels,
+      dueDate: newCardDueDate,
+      assignedMembers: newCardAssignedMembers,
     };
 
-    setLists((prevLists) =>
-      prevLists.map((list) => {
-        if (list.id === listId) {
-          return { ...list, cards: [...list.cards, newCard] };
-        }
-        return list;
-      }),
-    );
+    const updateLists = lists.map((list) => {
+      if (list.id === listId) {
+        return { ...list, cards: [...list.cards, newCard] };
+      }
+      return list;
+    });
+    setLists(updateLists);
+
+    setNewCardText('');
+    setNewCardDescription('');
+    setNewCardLabels([]);
+    setNewCardDueDate('');
+    setNewCardAssignedMembers([]);
   };
 
   return (
@@ -54,19 +99,50 @@ export default function App() {
       <Board>
         {lists.map((list) => (
           <List key={list.id}>
-            <h3>{list.title}</h3>
-            <div>
+            <TitleText>{list.title}</TitleText>
+            <ListBox>
               {list.cards.map((card) => (
                 <Card key={card.id}>{card.text}</Card>
               ))}
-            </div>
+            </ListBox>
             <AddCardButton onClick={() => addCard(list.id)}>
               Add Card
             </AddCardButton>
           </List>
         ))}
-        <AddListButton onClick={addList}>Add List</AddListButton>
+        {isAddingList ? (
+          <>
+            <InputField
+              type="text"
+              value={newListTitle}
+              onChange={(e) => setNewListTitle(e.target.value)}
+            />
+            <AddBox>
+              <CancelButton type="button" onClick={cancelAddList}>
+                Cancel
+              </CancelButton>
+              <AddListButton onClick={addList}>Add List</AddListButton>
+            </AddBox>
+          </>
+        ) : (
+          <AddListButton onClick={toggleAddList}>Add List</AddListButton>
+        )}
       </Board>
+      {isAddingList && (
+        <div>
+          <InputField
+            type="text"
+            value={newCardText}
+            onChange={(e) => setNewCardText(e.target.value)}
+          />
+          <InputField
+            type="text"
+            value={newCardDescription}
+            onChange={(e) => setNewCardDescription(e.target.value)}
+            placeholder="Description"
+          />
+        </div>
+      )}
     </Container>
   );
 }

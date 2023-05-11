@@ -60,3 +60,41 @@ export const AddCardButton = styled.button({
     backgroundColor: '#c4c9d2',
   },
 });
+
+export const InputField = styled.input({
+  padding: '8px',
+  border: '1px solid #ccc',
+  borderRadius: '4px',
+  marginRight: '10px',
+});
+
+export const TitleText = styled.h3({
+  fontSize: '18px',
+  fontWeight: 'bold',
+  marginBottom: '10px',
+});
+
+export const ListBox = styled.div({
+  marginBottom: '10px',
+});
+
+export const AddBox = styled.div({
+  marginTop: '10px',
+});
+
+export const CancelButton = styled.button({
+  marginRight: '5px',
+  padding: '5px 10px',
+  backgroundColor: '#4caf50',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '4px',
+  cursor: 'pointer',
+
+  '&hover': {
+    backgroundColor: '#45a049',
+  },
+  '&active': {
+    backgroundColor: '#3e8e41',
+  },
+});
